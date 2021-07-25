@@ -26,7 +26,6 @@ public interface Listener extends Remote
   public void handleEvent(Event e) throws RemoteException;
 }
 
-
 /**********************************************************************
  * $Log: Listener.java,v $
  * Revision 1.1  2004/10/25 17:58:37  willuhn

@@ -22,8 +22,6 @@ import java.rmi.RemoteException;
  * werden koennen. 
  */
 public interface GenericObject extends Remote {
-  
-
 	/**
 	 * Liefert den Wert des angegebenen Attributes.
 	 * @param name Name des Attributes.
@@ -38,7 +36,7 @@ public interface GenericObject extends Remote {
    * @throws RemoteException
    */
   public String[] getAttributeNames() throws RemoteException;
-	
+
 	/**
 	 * Liefert einen Identifier fuer dieses Objekt.
 	 * Dieser muss innerhalb des gesamten Systems/Services fuer diese Objektart eindeutig sein.
@@ -68,7 +66,6 @@ public interface GenericObject extends Remote {
 	public boolean equals(GenericObject other) throws RemoteException;
 
 }
-
 
 /**********************************************************************
  * $Log: GenericObject.java,v $

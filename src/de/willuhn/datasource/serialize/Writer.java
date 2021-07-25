@@ -28,7 +28,6 @@ public interface Writer extends IO
   public void write(GenericObject object) throws IOException;
 }
 
-
 /*********************************************************************
  * $Log: Writer.java,v $
  * Revision 1.1  2008/01/22 12:03:09  willuhn

@@ -23,7 +23,7 @@ import java.sql.Types;
  */
 public class TypeLongString extends TypeGeneric
 {
-  
+
   /**
    * @see de.willuhn.datasource.db.types.TypeGeneric#get(java.sql.ResultSet, java.lang.String)
    */
@@ -42,7 +42,7 @@ public class TypeLongString extends TypeGeneric
         int len = 0;
         while ((len = r.read(buf)) != -1)
           sb.append(buf,0,len);
-        
+
         return sb.toString();
       }
       catch (IOException ioe)
@@ -75,7 +75,6 @@ public class TypeLongString extends TypeGeneric
       stmt.setString(index,value.toString());
   }
 }
-
 
 /*********************************************************************
  * $Log: TypeLongString.java,v $

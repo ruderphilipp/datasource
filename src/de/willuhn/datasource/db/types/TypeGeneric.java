@@ -41,7 +41,6 @@ public class TypeGeneric implements Type
   }
 }
 
-
 /*********************************************************************
  * $Log: TypeGeneric.java,v $
  * Revision 1.1  2008/07/11 09:30:17  willuhn

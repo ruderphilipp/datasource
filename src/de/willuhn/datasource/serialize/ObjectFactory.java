@@ -31,7 +31,6 @@ public interface ObjectFactory
   public GenericObject create(String type, String identifier, Map attributes) throws Exception;
 }
 
-
 /*********************************************************************
  * $Log: ObjectFactory.java,v $
  * Revision 1.1  2008/01/22 12:03:09  willuhn

@@ -31,7 +31,6 @@ public interface ResultSetExtractor extends Remote
   public Object extract(ResultSet rs) throws RemoteException, SQLException;
 }
 
-
 /*********************************************************************
  * $Log: ResultSetExtractor.java,v $
  * Revision 1.1  2006/09/05 20:52:24  willuhn

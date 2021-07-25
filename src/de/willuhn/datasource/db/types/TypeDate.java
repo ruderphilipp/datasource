@@ -34,7 +34,6 @@ public class TypeDate extends TypeGeneric
 
 }
 
-
 /*********************************************************************
  * $Log: TypeDate.java,v $
  * Revision 1.1  2008/07/11 09:30:16  willuhn

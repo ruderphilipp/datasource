@@ -40,13 +40,12 @@ import de.willuhn.util.Session;
  */
 public abstract class AbstractDBObject extends UnicastRemoteObject implements DBObject 
 {
-
   // Der Primary-Key des Objektes
   private String id;
 
   // Haelt die Eigenschaften des Objektes.
   private HashMap properties = new HashMap();
-  
+
   // Backup der Eigenschaften des Objektes, um Aenderungen zu ueberwachen
   private HashMap origProperties = new HashMap();
 
@@ -64,7 +63,6 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
 
 	private transient ArrayList deleteListeners = null;
 	private transient ArrayList storeListeners  = null;
-
 
   private boolean upper = false;
 
@@ -89,7 +87,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
     if (conn == null)
       throw new SQLException("connection is null");
   }
-  
+
   /**
    * Liefert die Exception, die dieses Objekt gerade benutzt.
    * @return die Connection dieses Objektes.
@@ -118,7 +116,6 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
       throw new RemoteException("database connection not set.");
   }
 
-
   /**
    * Holt sich die Meta-Daten der Tabelle und erzeugt die Properties.
    * @throws SQLException Wenn beim Laden der Meta-Daten ein Datenbank-Fehler auftrat.
@@ -132,10 +129,10 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
     {
       throw new SQLException(e.getMessage());
     }
-    
+
     if (isInitialized())
       return; // allready initialized
-    
+
     // Checken, ob die Datenbank Uppercase ist
     this.upper = Boolean.getBoolean(getService().getClass().getName() + ".uppercase");
 
@@ -158,10 +155,9 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
     String tableName = getTableName();
     if (this.upper)
       tableName = tableName.toUpperCase();
-    
+
 		ResultSet meta = null;
 		try {
-		  
 		  String schema = System.getProperty(getService().getClass().getName() + ".schema",null); // BUGZILLA 960
 		  try
 		  {
@@ -175,7 +171,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
 			String field;
       if (!meta.next())
         throw new SQLException("database table not found: " + tableName);
-      
+
 			do
 			{
 				field = meta.getString("COLUMN_NAME");
@@ -197,7 +193,6 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
   				meta.close();
 			} catch (Exception e) {/*useless*/}
 		}
-  	
   }
 
   /**
@@ -212,9 +207,8 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
       this.types != null &&
       this.types.size() > 0
     );
-    
   }
-  
+
   /**
    * Prueft, ob wir gerade in einer Transaktion sind.
    * @return true, wenn wir in einer Transaktion sind.
@@ -227,7 +221,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
       return (t != null && t.count > 0);
     }
   }
-  
+
   /**
    * Liefert die aktuelle Transaktion oder null.
    * @return Transaktion oder null.
@@ -253,11 +247,11 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
 
     if (!isInitialized())
       throw new RemoteException("object not initialized.");
-    
+
 		String tableName = getTableName();
     if (this.upper)
       tableName = tableName.toUpperCase();
-    
+
 		Statement stmt = null;
 		ResultSet data = null;
 		try {
@@ -286,7 +280,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
 			} catch (Throwable t) {/*useless*/}
 		}
 	}
-  
+
   /**
    * Fuellt das Objekt mit den Daten aus dem Resultset.
    * @param rs
@@ -304,7 +298,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
     // Jetzt kopieren wir noch die Eigenschaften in die Backup-Tabelle um Aenderungen ueberwachen zu koennen
     this.origProperties.putAll(this.properties);
   }
-  
+
   /**
    * @see de.willuhn.datasource.rmi.DBObject#store()
    */
@@ -314,7 +308,6 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
       insert();
     else 
       update();
-    
   }
 
   /**
@@ -332,7 +325,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
       this.setAttribute(attributes[i],null);
     }
   }
-  
+
   /**
    * @see de.willuhn.datasource.rmi.DBObject#delete()
    */
@@ -355,7 +348,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
 
       String tableName = getTableName();
       String idField   = getIDField();
-      
+
       if (this.upper)
       {
         tableName = tableName.toUpperCase();
@@ -458,7 +451,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
     if (foreign != null)
     {
       String id = o.toString();
-      
+
       DBObject cachedObject = (DBObject) foreignObjectCache.get(foreign.getName() + fieldName);
       if (cachedObject != null)
       {
@@ -510,7 +503,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
         if (this.hasChanged(names[i]))
           return true;
       }
-      
+
       return false;
     }
     catch (RemoteException re)
@@ -529,10 +522,10 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
   {
     Object o = this.origProperties.get(attribute);
     Object n = this.properties.get(attribute);
-    
+
     if (o == n) // greift auch dann, wenn beide null sind
       return false;
-    
+
     if (o == null || n == null)
       return true; // einer der beiden Werte ist jetzt null
 
@@ -556,7 +549,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
 
     return !o.equals(n);
   }
-  
+
   /**
    * Speichert einen neuen Wert in den Properties
    * und liefert den vorherigen zurueck.
@@ -583,7 +576,6 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
   {
     Set s = properties.keySet();
     return (String[]) s.toArray(new String[s.size()]);
-    
   }
 
 	/**
@@ -599,7 +591,6 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
-
       String tableName = getTableName();
       String idField   = getIDField();
       if (this.upper)
@@ -607,7 +598,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
         tableName = tableName.toUpperCase();
         idField   = idField.toUpperCase();
       }
-      
+
 			stmt = getConnection().createStatement();
 			rs = stmt.executeQuery("select max(" + idField + ") from " + tableName);
 			if (!rs.next())
@@ -653,7 +644,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
     try {
       stmt = getInsertSQL();
       stmt.executeUpdate();
-      
+
       // Wenn wir noch keine ID haben (das ist immer dann der Fall, wenn
       // wir sie nicht explizit vor dem Insert angegeben haben - also der
       // Normalfall), dann holen wir sie uns
@@ -671,13 +662,13 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
           // In dem Fall greifen dann die folgenden Zeilen mit getLastId()
         }
       }
-      
+
       // Es kann sein, dass der Treiber "Statement.RETURN_GENERATED_KEYS"
       // nicht unterstuetzt. In dem Fall muessen wir uns die ID selbst
       // holen.
       if (this.id == null)
         this.id = getLastId();
-      
+
       boolean tx = this.inTransaction();
       this.created = tx; // Rollback-Markierung nur setzen, wenn wir in einer Transaktion sind
 
@@ -686,7 +677,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
       {
         getConnection().commit();
       }
-      
+
 			notify(storeListeners);
 
     }
@@ -720,7 +711,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
       }
 		}
   }
-  
+
   /**
    * Aktualisiert das Objekt explizit in der Datenbank.
    * Wenn es sich um ein neues Objekt handelt, wird das Update fehlschlagen.
@@ -778,7 +769,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
           stmt.close();
 			} catch (SQLException se) {/*useless*/}
 		}
-    
+
   }
 
   /**
@@ -801,7 +792,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
       tableName = tableName.toUpperCase();
       idField   = idField.toUpperCase();
     }
-    
+
     String sql = "update " + tableName + " set ";
     String[] attributes = getAttributeNames();
 
@@ -842,7 +833,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
           continue; // wurde nicht geaendert
         String type  = (String) types.get(attributes[i]);
         Object value = properties.get(attributes[i]);
-        
+
         // Automatisch in ID aufloesen
         if (value instanceof DBObject)
         {
@@ -859,7 +850,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
       throw new RemoteException("unable to prepare update sql statement",e);
     }
   }
-  
+
   /**
    * Liefert das automatisch erzeugte SQL-Statement fuer ein Insert.
    * Kann bei Bedarf ueberschrieben um ein vom dynamisch erzeugten
@@ -894,7 +885,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
         values.append(',');
       }
     }
-    
+
     // Wenn das Objekt eine ID hat, dann haengen wir sie an's Insert-Statement mit dran.
     this.id = getID();
 
@@ -944,12 +935,12 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
         // BUGZILLA 995 - Die Datenbank unterstuetzt das nicht.
         stmt = getConnection().prepareStatement(sql.toString());
       }
-      
+
       for (int i=0;i<attributes.length;++i)
       {
         if (attributes[i] == null || attributes[i].length() == 0) // die sollte es zwar eigentlich nicht geben, aber sicher ist sicher ;)
           continue; // skip empty fields
-        
+
         String type  = (String) types.get(attributes[i]);
         Object value = properties.get(attributes[i]);
         // Automatisch in ID aufloesen
@@ -986,7 +977,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
         tableName = tableName.toUpperCase();
         idField   = idField.toUpperCase();
       }
-      
+
       stmt = getConnection().createStatement();
       rs = stmt.executeQuery("select (max(" + idField + ") + 1) from " + tableName);
       if (!rs.next())
@@ -1030,7 +1021,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
     String tableName = getTableName();
     if (this.upper)
       tableName = tableName.toUpperCase();
-    
+
     return "select " + tableName + ".* from " + tableName;
   }
 
@@ -1053,7 +1044,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
       tableName = tableName.toUpperCase();
       idField   = idField.toUpperCase();
     }
-    
+
 		try {
 			return "select * from " + tableName + " where " + idField + " = "+Integer.parseInt(this.getID());
 		}
@@ -1159,7 +1150,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
   {
     return null;
   }
-  
+
   /**
    * @see de.willuhn.datasource.rmi.DBObject#transactionBegin()
    */
@@ -1175,11 +1166,11 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
       tr.count++;
       if (tr.count > 5)
         Logger.warn("[begin] transaction count: " + tr.count + " - forgotten to rollback/commit?");
-      
+
       Logger.debug("[begin] transaction count: " + tr.count);
     }
   }
-  
+
   private boolean created = false;
 
   /**
@@ -1203,7 +1194,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
         Logger.debug("[rollback] rollback without begin or transaction allready rolled back");
         return;
       }
-      
+
       checkConnection();
 
       Transaction tr = getTransaction();
@@ -1251,7 +1242,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
         Logger.debug("[commit] commit called, but no transaction found");
         return;
       }
-      
+
       tr.count--;
       Logger.debug("[commit] transaction count: " + tr.count);
 
@@ -1261,7 +1252,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
       try {
         Logger.debug("[commit] transaction commit");
         getConnection().commit();
-        
+
         // Transaktion ist durch. Egal, ob das Ojekt gerade erstellt wurde oder
         // schon existierte. Jetzt ist es auf jeden Fall nicht mehr frisch.
         this.created = false;
@@ -1299,7 +1290,7 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
       return;
 
     String[] attributes = getAttributeNames();
-    
+
     for (int i=0;i<attributes.length;++i)
     {
       Class foreign = getForeignObject(attributes[i]);
@@ -1338,9 +1329,8 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
 
     if (id == null)
       return false;
-      
+
     return (this.getClass().getName().equals(className)) && id.equals(this.getID());
-    
   }
 
   /**
@@ -1405,12 +1395,12 @@ public abstract class AbstractDBObject extends UnicastRemoteObject implements DB
 			((Listener) listeners.get(i)).handleEvent(e);
 		}
 	}
-  
+
   private class Transaction
   {
     private int count = 0;
     private Connection myConn = null;
-    
+
     private Transaction()
     {
       myConn = getConnection();

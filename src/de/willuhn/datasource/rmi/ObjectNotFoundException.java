@@ -49,7 +49,6 @@ public class ObjectNotFoundException extends RemoteException
 
 }
 
-
 /**********************************************************************
  * $Log: ObjectNotFoundException.java,v $
  * Revision 1.2  2007/04/02 23:00:42  willuhn

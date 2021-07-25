@@ -40,7 +40,6 @@ public class TypeInteger extends TypeGeneric
   }
 }
 
-
 /*********************************************************************
  * $Log: TypeInteger.java,v $
  * Revision 1.2  2009/01/29 22:31:29  willuhn

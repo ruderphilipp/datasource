@@ -30,7 +30,7 @@ public interface Transactionable
    * @throws RemoteException im Fehlerfall.
    */
   public void transactionBegin() throws RemoteException;
-  
+
   /**
    * Beendet eine manuell gestartete Transaktion.
    * Wenn vorher kein <code>transactionBegin()</code> aufgerufen wurde,

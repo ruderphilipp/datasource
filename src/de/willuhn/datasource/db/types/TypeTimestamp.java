@@ -35,7 +35,6 @@ public class TypeTimestamp extends TypeGeneric
 
 }
 
-
 /*********************************************************************
  * $Log: TypeTimestamp.java,v $
  * Revision 1.1  2008/07/11 09:30:17  willuhn

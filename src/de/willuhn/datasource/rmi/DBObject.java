@@ -19,7 +19,7 @@ import de.willuhn.datasource.GenericObject;
  */
 public interface DBObject extends GenericObject, Transactionable, Changeable
 {
-  
+
   /**
    * Laedt die Eigenschaften des Datensatzes mit der angegebenen
    * ID aus der Datenbank.
@@ -84,7 +84,7 @@ public interface DBObject extends GenericObject, Transactionable, Changeable
 	 * @throws RemoteException
 	 */
 	public void addDeleteListener(Listener l) throws RemoteException; 
-	
+
 	/**
 	 * Fuegt dem Objekt einen Listener hinzu, der ausgeloest wird, wenn
 	 * das Objekt gespeichert wurde.
@@ -100,7 +100,7 @@ public interface DBObject extends GenericObject, Transactionable, Changeable
    * @throws RemoteException
    */
   public void removeDeleteListener(Listener l) throws RemoteException; 
-  
+
   /**
    * Entfernt den Listener wieder.
    * @param l der Listener.

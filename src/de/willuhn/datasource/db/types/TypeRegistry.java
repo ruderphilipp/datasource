@@ -22,12 +22,12 @@ import de.willuhn.logging.Logger;
 public class TypeRegistry
 {
   private static Map types = new HashMap();
-  
+
   /**
    * Generischer Typ, der Verwendung findet, wenn kein passender Typ gefunden wurde.
    */
   public final static Type TYPE_DEFAULT = new TypeGeneric();
-  
+
   static
   {
     types.put(null,        TYPE_DEFAULT);
@@ -40,19 +40,19 @@ public class TypeRegistry
     types.put("date",        new TypeDate());
     types.put("datetime",    new TypeTimestamp());
     types.put("timestamp",   new TypeTimestamp());
-    
+
     types.put("int",         new TypeInteger());
     types.put("double",      new TypeDouble());
     types.put("decimal",     new TypeDouble());
-    
+
     types.put("blob",        new TypeByteArray());
     types.put("longblob",    new TypeByteArray());
-    
+
     // Daemliches PostgreSQL - muessen die denn ALLES anders machen? :(
     types.put("bytea",       new TypeByteArray());
     types.put("timestamptz", new TypeTimestamp());
   }
-  
+
   /**
    * Liefert die Typ-Implementierung fuer den angegebenen Typ.
    * Die Funktion beruecksichtigt KEINE Gross-Kleinschreibung.
@@ -64,11 +64,11 @@ public class TypeRegistry
   {
     if (name == null)
       return TYPE_DEFAULT;
-    
+
     Type t = (Type) types.get(name.toLowerCase());
     return t == null ? TYPE_DEFAULT : t;
   }
-  
+
   /**
    * Registriert einen benutzerdefinierten SQL-Typ.
    * @param name Name des Feld-Typs.
@@ -84,7 +84,6 @@ public class TypeRegistry
     types.put(name.toLowerCase(),type);
   }
 }
-
 
 /*********************************************************************
  * $Log: TypeRegistry.java,v $

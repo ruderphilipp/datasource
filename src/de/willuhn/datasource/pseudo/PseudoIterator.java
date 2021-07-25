@@ -53,7 +53,7 @@ public class PseudoIterator extends UnicastRemoteObject implements GenericIterat
 		i.list = Arrays.asList(objects);
 		return i;
 	}
-  
+
   /**
    * Erzeugt eine Liste aus einem GenericIterator.
    * @param iterator zu konvertierender Iterator.
@@ -124,12 +124,11 @@ public class PseudoIterator extends UnicastRemoteObject implements GenericIterat
 			if (object.equals(o))
 				return object;
 		}
-    
+
 		return null;
   }
 
 }
-
 
 /**********************************************************************
  * $Log: PseudoIterator.java,v $

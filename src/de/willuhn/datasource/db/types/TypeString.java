@@ -21,7 +21,7 @@ import java.sql.Types;
  */
 public class TypeString extends TypeGeneric
 {
-  
+
   /**
    * @see de.willuhn.datasource.db.types.TypeGeneric#get(java.sql.ResultSet, java.lang.String)
    */
@@ -41,7 +41,6 @@ public class TypeString extends TypeGeneric
       stmt.setString(index,value.toString());
   }
 }
-
 
 /*********************************************************************
  * $Log: TypeString.java,v $

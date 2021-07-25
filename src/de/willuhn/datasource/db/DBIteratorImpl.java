@@ -28,7 +28,6 @@ import de.willuhn.logging.Logger;
  * @param <T> der konkrete Typ.
  */
 public class DBIteratorImpl<T extends AbstractDBObject> extends UnicastRemoteObject implements DBIterator<T> {
-
 	private DBService service       = null;
 	private Connection conn         = null;
 	private T object                = null;
@@ -61,7 +60,6 @@ public class DBIteratorImpl<T extends AbstractDBObject> extends UnicastRemoteObj
 
 		if (conn == null)
 			throw new RemoteException("given connection is null");
-
   }
 
   /**
@@ -153,7 +151,7 @@ public class DBIteratorImpl<T extends AbstractDBObject> extends UnicastRemoteObj
   {
     if (this.initialized)
       return; // allready initialized
-    
+
     if (table == null)
       return;
 
@@ -184,10 +182,10 @@ public class DBIteratorImpl<T extends AbstractDBObject> extends UnicastRemoteObj
     // Statement enthaelt noch kein Order - also koennen wir unseres noch dranschreiben
     if (sql.indexOf(" order ") == -1)
       sql += order;
-    
+
     if (sql.indexOf(" limit ") == -1 && this.limit > 0)
       sql += " limit " + Integer.toString(this.limit);
-    
+
     return sql;
   }
 
@@ -206,7 +204,7 @@ public class DBIteratorImpl<T extends AbstractDBObject> extends UnicastRemoteObj
       sql = prepareSQL();
 
       stmt = conn.prepareStatement(sql);
-      
+
       for (int i=0;i<this.params.size();++i)
       {
         Object p = this.params.get(i);
@@ -215,7 +213,7 @@ public class DBIteratorImpl<T extends AbstractDBObject> extends UnicastRemoteObj
         else
           stmt.setObject((i+1),p);
       }
-      
+
       Logger.debug("executing sql query: " + stmt);
 
       rs = stmt.executeQuery();
@@ -264,7 +262,7 @@ public class DBIteratorImpl<T extends AbstractDBObject> extends UnicastRemoteObj
       throw new RemoteException(e.getMessage());
     }
 	}
-  
+
   /**
    * @see de.willuhn.datasource.GenericIterator#previous()
    */
@@ -317,8 +315,7 @@ public class DBIteratorImpl<T extends AbstractDBObject> extends UnicastRemoteObj
       if (object.equals(other))
         return object;
     }
-    
+
     return null;
-    
   }
 }

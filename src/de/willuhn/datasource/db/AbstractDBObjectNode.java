@@ -35,7 +35,6 @@ import de.willuhn.util.ApplicationException;
  */
 public abstract class AbstractDBObjectNode extends AbstractDBObject implements DBObjectNode
 {
-
   /**
    * @throws RemoteException
    */
@@ -100,7 +99,7 @@ public abstract class AbstractDBObjectNode extends AbstractDBObject implements D
       // Direktes Kind?
       if (child.equals(object))
         return true;
-      
+
       // Kindes-Kinder checken
       if (child.hasChild(object))
         return true;
@@ -134,7 +133,6 @@ public abstract class AbstractDBObjectNode extends AbstractDBObject implements D
     if (!this.isNewObject())
       list.addFilter(getIDField() + " != "+this.getID()); // Objekt darf nicht sich selbst als Eltern-Objekt haben
     ArrayList array = new ArrayList();
-
 		GenericObjectNode element = null;
     while (list.hasNext())
     {
@@ -228,7 +226,6 @@ public abstract class AbstractDBObjectNode extends AbstractDBObject implements D
       Logger.error("error while checking children",e);
       throw new ApplicationException("Fehler beim Prüfen der Abhängigkeiten.");
     }
-    
   }
 
   /**

@@ -13,14 +13,12 @@ package de.willuhn.datasource;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-
 /**
  * generischer RMI-tauglicher Iterator.
  * @param <T> der konkrete Objekt-Typ.
  */
 public interface GenericIterator<T extends GenericObject> extends Remote
 {
-
 	/**
 	 * Liefert true, wenn weitere Elemente in diesem Iterator existieren.
 	 * @return true, wenn weitere Elemente vorhanden sind.
@@ -63,5 +61,4 @@ public interface GenericIterator<T extends GenericObject> extends Remote
    * @throws RemoteException
    */
   public T contains(T o) throws RemoteException;
-
 }

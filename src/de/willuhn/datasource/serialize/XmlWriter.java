@@ -30,7 +30,7 @@ public class XmlWriter extends AbstractXmlIO implements Writer
   private boolean headerWritten = false;
 
   private final static Map XML_MAP     = new HashMap();
-  
+
   static
   {
     XML_MAP.put(new Character('\u0026'),"&amp;");
@@ -39,7 +39,7 @@ public class XmlWriter extends AbstractXmlIO implements Writer
     XML_MAP.put(new Character('\u003C'),"&lt;");
     XML_MAP.put(new Character('\u003E'),"&gt;");
   }
-  
+
   /**
    * ct
    * @param os
@@ -64,10 +64,9 @@ public class XmlWriter extends AbstractXmlIO implements Writer
           super.close();
         }
       }
-      
     };
   }
-  
+
   /**
    * @see de.willuhn.datasource.serialize.IO#close()
    */
@@ -75,7 +74,7 @@ public class XmlWriter extends AbstractXmlIO implements Writer
   {
     this.os.close();
   }
-  
+
   /**
    * Liefert die Namen der zu serialisierenden Attributes des Objektes.
    * Kann bei Bedarf ueberschrieben werden.
@@ -127,10 +126,10 @@ public class XmlWriter extends AbstractXmlIO implements Writer
       sb.append(" type=\"");
       sb.append(type);
       sb.append("\">");
-      
+
       Value v = (Value) valueMap.get(type);
       if (v == null) v = (Value) valueMap.get(null);
-      
+
       sb.append(encode(v.serialize(o)));
       sb.append("</");
       sb.append(names[i]);
@@ -139,7 +138,7 @@ public class XmlWriter extends AbstractXmlIO implements Writer
     sb.append("  </object>\n");
     os.write(sb.toString().getBytes(ENCODING));
   }
-  
+
   /**
    * Fuehrt XML-Escapings durch.
    * @param s zu escapender String.
@@ -163,7 +162,6 @@ public class XmlWriter extends AbstractXmlIO implements Writer
   }
 
 }
-
 
 /*********************************************************************
  * $Log: XmlWriter.java,v $

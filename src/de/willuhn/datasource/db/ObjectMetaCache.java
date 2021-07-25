@@ -34,7 +34,7 @@ public class ObjectMetaCache
 {
 
   private static Session metaCache = new Session(1000l * 60 * 60 * 2); // 2 Stunden Timeout
-  
+
   private static long found = 0;
   private static long all = 0;
 
@@ -69,7 +69,7 @@ public class ObjectMetaCache
   {
     metaCache.put(service.getName() + "." + objectType.getName(),fields);
   }
-  
+
   /**
    * Liefert den prozentualen Anteil zwischen Cache-Abfragen insgesamt und erfolgreich
    * beantworteten Abfragen.

@@ -27,7 +27,7 @@ import de.willuhn.logging.Logger;
  */
 public class TypeByteArray extends TypeGeneric
 {
-  
+
   /**
    * @see de.willuhn.datasource.db.types.TypeGeneric#get(java.sql.ResultSet, java.lang.String)
    */
@@ -38,7 +38,7 @@ public class TypeByteArray extends TypeGeneric
       return null;
 
     InputStream is = null;
-    
+
     if (value instanceof InputStream)
     {
       is = (InputStream) value;
@@ -56,7 +56,7 @@ public class TypeByteArray extends TypeGeneric
       Logger.warn("don't know how to handle type " + value.getClass().getName() + " - returning unchanged");
       return value;
     }
-    
+
     // Daten aus dem InputStream kopieren
     try
     {
@@ -65,7 +65,7 @@ public class TypeByteArray extends TypeGeneric
       int len = 0;
       while ((len = is.read(buf)) != -1)
         bos.write(buf,0,len);
-        
+
       return bos.toByteArray();
     }
     catch (IOException ioe)
@@ -96,7 +96,6 @@ public class TypeByteArray extends TypeGeneric
       stmt.setBytes(index,(byte[])value);
   }
 }
-
 
 /*********************************************************************
  * $Log: TypeByteArray.java,v $

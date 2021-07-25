@@ -57,18 +57,18 @@ public class XmlReader extends AbstractXmlIO implements Reader
     NodeList objects  = this.doc.getElementsByTagName("object");
     if (objects == null || objects.getLength() == 0)
       return null; // Keine Objekte in der Datei
-    
+
     Node current = objects.item(pos++);
-    
+
     if (current == null)
       return null; // Am Ende angekommen
-    
+
     NamedNodeMap attributes = current.getAttributes();
     String type = attributes.getNamedItem("type").getNodeValue();
-    
+
     Node nid = attributes.getNamedItem("id");
     String id = nid != null ? nid.getNodeValue() : null;
-    
+
     HashMap values = new HashMap();
     NodeList list = current.getChildNodes();
     for (int i=0;i<list.getLength();++i)
@@ -89,10 +89,10 @@ public class XmlReader extends AbstractXmlIO implements Reader
       {
         // ignore
       }
-      
+
       Value v = (Value) valueMap.get(vType);
       if (v == null) v = (Value) valueMap.get(null);
-      
+
       values.put(name,v.unserialize(value));
     }
     try
@@ -109,7 +109,7 @@ public class XmlReader extends AbstractXmlIO implements Reader
       throw new IOException("unable to create object " + type + ":" + id);
     }
   }
-  
+
   /**
    * @see de.willuhn.datasource.serialize.IO#close()
    */
@@ -117,10 +117,8 @@ public class XmlReader extends AbstractXmlIO implements Reader
   {
     this.is.close();
   }
-  
 
 }
-
 
 /*********************************************************************
  * $Log: XmlReader.java,v $

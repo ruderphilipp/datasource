@@ -39,17 +39,17 @@ import de.willuhn.util.ClassFinder;
 public class DBServiceImpl extends UnicastRemoteObject implements DBService
 {
   private static final long serialVersionUID = 1L;
-  
+
   private String jdbcDriver   = null;
   private String jdbcUrl      = null;
   private String jdbcUsername = null;
   private String jdbcPassword = null;
-  
+
   private Map connections     = null;
 
   private boolean started		  = false;
   private boolean startable		= true;
-  
+
   private ClassFinder finder  = null;
   private ClassLoader loader  = null;
 
@@ -72,7 +72,7 @@ public class DBServiceImpl extends UnicastRemoteObject implements DBService
 	{
     this(jdbcDriver,jdbcURL,null,null);
 	}
-  
+
   /**
    * Erzeugt eine neue Instanz.
    * @param jdbcDriver JDBC-Treiber-Klasse.
@@ -91,7 +91,6 @@ public class DBServiceImpl extends UnicastRemoteObject implements DBService
     this.jdbcDriver   = jdbcDriver;
     this.jdbcUsername = jdbcUsername;
     this.jdbcPassword = jdbcPassword;
-
     this.connections = Collections.synchronizedMap(new HashMap());
   }
 
@@ -105,7 +104,6 @@ public class DBServiceImpl extends UnicastRemoteObject implements DBService
     String key = getClientIdentifier();
 
     Connection conn = (Connection) this.connections.get(key);
-
     if (conn != null)
     {
       try
@@ -118,7 +116,7 @@ public class DBServiceImpl extends UnicastRemoteObject implements DBService
         conn = null;
       }
     }
-    
+
     if (conn == null)
     {
       conn = createConnection();
@@ -142,7 +140,7 @@ public class DBServiceImpl extends UnicastRemoteObject implements DBService
 
     return conn;
 	}
-  
+
   /**
    * Liefert den Client-Host oder <code>null</code>.
    * @return ein Client-Identifier.
@@ -159,6 +157,7 @@ public class DBServiceImpl extends UnicastRemoteObject implements DBService
     }
     return null;
   }
+
   /**
    * Erstellt eine neue Connection.
    * @return die neu erstellte Connection.
@@ -181,7 +180,7 @@ public class DBServiceImpl extends UnicastRemoteObject implements DBService
       throw new RemoteException("connection to database." + url + " failed",e2);
     }
   }
-  
+
   /**
    * Schliesst die uebergebene Connection.
    * @param conn
@@ -210,7 +209,7 @@ public class DBServiceImpl extends UnicastRemoteObject implements DBService
       Logger.error("error while closing connection. message: " + t.getMessage());
     }
   }
-  
+
   /**
    * Kann von abgeleiteten Klassen ueberschrieben werden, um die Connection
    * zu testen.
@@ -262,7 +261,7 @@ public class DBServiceImpl extends UnicastRemoteObject implements DBService
   public synchronized void start() throws RemoteException
   {
 		if (isStarted()) return;
-		
+
 		if (!isStartable())
 			throw new RemoteException("service restart not allowed");
 
@@ -298,7 +297,6 @@ public class DBServiceImpl extends UnicastRemoteObject implements DBService
 
     started = true;
   }
-
 
   /**
    * @see de.willuhn.datasource.Service#stop(boolean)
@@ -351,7 +349,6 @@ public class DBServiceImpl extends UnicastRemoteObject implements DBService
       started = false;
     }
   }
-  
 
   /**
    * Erzeugt ein neues Objekt aus der angegeben Klasse.
@@ -489,7 +486,6 @@ public class DBServiceImpl extends UnicastRemoteObject implements DBService
     }
   }
 
-  
 	/**
 	 * Prueft intern, ob der Service gestartet ist und wirft ggf. eine Exception.
    * @throws RemoteException
@@ -515,7 +511,7 @@ public class DBServiceImpl extends UnicastRemoteObject implements DBService
   {
     return "database service";
   }
-  
+
   /**
    * Liefert den JDBC-Treiber.
    * @return der JDBC-Treiber.
@@ -525,7 +521,7 @@ public class DBServiceImpl extends UnicastRemoteObject implements DBService
   {
     return this.jdbcDriver;
   }
-  
+
   /**
    * Liefert die JDBC-URL.
    * @return die JDBC-URL.
@@ -535,7 +531,7 @@ public class DBServiceImpl extends UnicastRemoteObject implements DBService
   {
     return this.jdbcUrl;
   }
-  
+
   /**
    * Liefert den JDBC-Usernamen.
    * @return der Username.
@@ -545,8 +541,7 @@ public class DBServiceImpl extends UnicastRemoteObject implements DBService
   {
     return this.jdbcUsername;
   }
-  
-  
+
   /**
    * Liefert das JDBC-Passwort.
    * @return das JDBC-Passwort.
@@ -571,7 +566,7 @@ public class DBServiceImpl extends UnicastRemoteObject implements DBService
   {
     return -1;
   }
-  
+
   /**
    * Liefert true, wenn autocommit aktiv sein soll.
    * Default: false.
@@ -582,7 +577,7 @@ public class DBServiceImpl extends UnicastRemoteObject implements DBService
   {
     return false;
   }
-  
+
   /**
    * Liefert true, wenn der DB-Service bei INSERT-Queries <b>vorher</b> die zu verwendende ID ermitteln soll.
    * MySQL zum besitzt eine auto_increment-Funktion, mit der es nicht notwendig ist, die ID beim

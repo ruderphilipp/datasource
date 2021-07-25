@@ -23,7 +23,6 @@ import java.util.Map;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.Base64;
 
-
 /**
  * Abstrakte Basis-Implementierung des XML-Formats.
  */
@@ -54,7 +53,7 @@ public abstract class AbstractXmlIO implements IO
      * @throws IOException
      */
     public String serialize(Object o) throws IOException;
-    
+
     /**
      * Erzeugt ein Object aus dem String.
      * @param s der String.
@@ -63,7 +62,7 @@ public abstract class AbstractXmlIO implements IO
      */
     public Object unserialize(String s) throws IOException;
   }
-  
+
   protected static abstract class AbstractValue implements Value
   {
     /**
@@ -74,7 +73,7 @@ public abstract class AbstractXmlIO implements IO
       return o == null ? "" : o.toString();
     }
   }
-  
+
   /**
    * Implementierung fuer Strings.
    */
@@ -102,7 +101,7 @@ public abstract class AbstractXmlIO implements IO
       return (s == null || s.length() == 0) ? null : new Double(s);
     }
   }
-  
+
   /**
    * Implementierung fuer BigDecimal.
    */
@@ -144,7 +143,7 @@ public abstract class AbstractXmlIO implements IO
       return (s == null || s.length() == 0) ? null : new Long(s);
     }
   }
-  
+
   /**
    * Implementierung fuer Boolean.
    */
@@ -192,7 +191,7 @@ public abstract class AbstractXmlIO implements IO
       return o == null ? "" : format.format((Date)o);
     }
   }
-  
+
   /**
    * Implementierung fuer java.sql.Date.
    */
@@ -222,7 +221,7 @@ public abstract class AbstractXmlIO implements IO
       return date == null ? null : new java.sql.Timestamp(date.getTime());
     }
   }
-  
+
   /**
    * Implementierung fuer Byte-Arrays.
    */
@@ -248,10 +247,8 @@ public abstract class AbstractXmlIO implements IO
         return null;
       return Base64.decode(s);
     }
-    
   }
 }
-
 
 /**********************************************************************
  * $Source: /cvsroot/jameica/datasource/src/de/willuhn/datasource/serialize/AbstractXmlIO.java,v $

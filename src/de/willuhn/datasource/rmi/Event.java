@@ -26,7 +26,6 @@ public interface Event extends Remote
   public DBObject getObject() throws RemoteException;
 }
 
-
 /**********************************************************************
  * $Log: Event.java,v $
  * Revision 1.1  2004/10/25 17:58:37  willuhn

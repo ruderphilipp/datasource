@@ -107,7 +107,6 @@ public class MyDriver implements Driver
 
 }
 
-
 /**********************************************************************
  * $Log: MyDriver.java,v $
  * Revision 1.2  2005/03/09 01:07:51  web0

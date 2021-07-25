@@ -35,7 +35,7 @@ public interface DBObjectNode extends DBObject, GenericObjectNode
 	 * @throws RemoteException
 	 */
 	public GenericIterator getTopLevelList() throws RemoteException;
-	
+
 	/**
 	 * Speichert das Eltern-Element.
 	 * @param parent Eltern-Element.

@@ -46,7 +46,7 @@ public class EmbeddedDatabase
 	private DefaultDBConfig config = null;
 	private DBController control = null;
 	private DBService db = null;
-	
+
 	private String username = null;
 	private String password = null;
 
@@ -135,7 +135,6 @@ public class EmbeddedDatabase
 		}
 
 		try {
-
 		  DBSystem session = null;
 
 			Logger.info("creating database");
@@ -189,15 +188,14 @@ public class EmbeddedDatabase
 		Logger.debug("executing " + file.getAbsolutePath());
 		if (!file.canRead() || !file.exists())
 			throw new IOException("SQL file does not exist or is not readable");
-		
 
 		Connection conn   = null;
 		DBSystem session  = null;
     FileReader reader = null;
-    
+
 		try
     {
-      
+
 		  session = control.startDatabase(config);
 			conn    = session.getConnection(username,password);
       reader  = new FileReader(file);
@@ -234,9 +232,8 @@ public class EmbeddedDatabase
         Logger.error("error while closing session",e4);
       }
 		}
-		
 	}
-	
+
 	/**
 	 * Liefert den Verzeichnis-Pfad, in dem sich die Datenbank befindet.
    * @return Pfad zur Datenbank.
@@ -323,7 +320,7 @@ public class EmbeddedDatabase
 		// Dispose the transaction system
 		system.dispose();
 	}
-	
+
   /**
 	 * Liefert eine Connection zu dieser Datenbank.
    * @return Connection.
@@ -335,7 +332,6 @@ public class EmbeddedDatabase
 		return DriverManager.getConnection(":jdbc:mckoi:local://" + path.getAbsolutePath() + "/db.conf?user=" + username + "&password=" + password);
 	}
 }
-
 
 /**********************************************************************
  * $Log: EmbeddedDatabase.java,v $

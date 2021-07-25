@@ -41,7 +41,6 @@ public class TypeDouble extends TypeGeneric
  }
 }
 
-
 /*********************************************************************
  * $Log: TypeDouble.java,v $
  * Revision 1.3  2008/09/02 18:00:12  willuhn

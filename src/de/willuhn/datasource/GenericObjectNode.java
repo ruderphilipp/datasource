@@ -18,7 +18,6 @@ import java.rmi.RemoteException;
  */ 
 public interface GenericObjectNode extends GenericObject
 {
-
   /**
    * Liefert einen Iterator mit allen direkten Kind-Objekten
    * des aktuellen Objektes. Jedoch keine Kindes-Kinder.
@@ -26,7 +25,6 @@ public interface GenericObjectNode extends GenericObject
    * @throws RemoteException
    */
   public GenericIterator getChildren() throws RemoteException;
-
 
   /**
    * Prueft, ob das uebergeben Node-Objekt ein Kind des aktuellen
@@ -36,7 +34,6 @@ public interface GenericObjectNode extends GenericObject
    * @throws RemoteException
    */
   public boolean hasChild(GenericObjectNode object) throws RemoteException;
-
 
   /**
    * Liefert das Eltern-Element des aktuellen oder null, wenn es sich

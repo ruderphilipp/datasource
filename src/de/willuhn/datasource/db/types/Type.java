@@ -28,7 +28,7 @@ public interface Type
    * @throws SQLException
    */
   public Object get(ResultSet rs, String name) throws SQLException;
-  
+
   /**
    * Speichert den uebergebenen Wert im Statement.
    * @param stmt das Statement.
@@ -38,7 +38,6 @@ public interface Type
    */
   public void set(PreparedStatement stmt, int index, Object value) throws SQLException;
 }
-
 
 /*********************************************************************
  * $Log: Type.java,v $

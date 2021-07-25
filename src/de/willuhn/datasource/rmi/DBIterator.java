@@ -21,7 +21,6 @@ import de.willuhn.datasource.GenericIterator;
 public interface DBIterator<T extends DBObject> extends GenericIterator<T>
 {
 
-
   /**
    * Fuegt dem Iterator einen zusaetzlichen Filter hinzu, der
    * sich auf die Anzahl der Treffer auswirkt. Bsp:
@@ -33,7 +32,7 @@ public interface DBIterator<T extends DBObject> extends GenericIterator<T>
    * @throws RemoteException
    */
   public void addFilter(String filter) throws RemoteException;
-  
+
   /**
    * Wie {@link DBIterator#addFilter(String)} - allerdings mit dem
    * Unterschied, dass ueber das Objekt-Array zusaetzliche Parameter
@@ -50,21 +49,21 @@ public interface DBIterator<T extends DBObject> extends GenericIterator<T>
    * @throws RemoteException
    */
   public void addFilter(String filter, Object... params) throws RemoteException;
-  
+
   /**
    * Fuegt eine Tabelle via Join hinzu.
    * @param table zu joinende Tabelle.
    * @throws RemoteException
    */
   public void join(String table) throws RemoteException;
-  
+
   /**
    * Fuegt dem Iterator eine Sortierung hinzu.
    * @param order
    * @throws RemoteException
    */
   public void setOrder(String order) throws RemoteException;
-  
+
   /**
    * Fuegt ein "limit {i}" dem Statement hinzu.
    * @param i Hoehe des Limit.

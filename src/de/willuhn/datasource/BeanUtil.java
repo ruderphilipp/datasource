@@ -22,7 +22,6 @@ import java.util.List;
 
 import de.willuhn.logging.Logger;
 
-
 /**
  * Hilfsklasse, um auf gemeinsame Weise sowhl GenericObjects als auch regulaere Beans generisch nutzen zu koennen.
  */
@@ -40,18 +39,18 @@ public class BeanUtil
     List<String> result = new ArrayList<String>();
     if (bean == null)
       return result;
-    
+
     if (bean instanceof GenericObject)
     {
       GenericObject o = (GenericObject) bean;
       result.addAll(Arrays.asList(o.getAttributeNames()));
       return result;
     }
-    
+
     Method[] methods = bean.getClass().getMethods();
     if (methods == null || methods.length == 0)
       return result;
-    
+
     for (Method m:methods)
     {
       String name = m.getName();
@@ -60,7 +59,7 @@ public class BeanUtil
     }
     return result;
   }
-  
+
   /**
    * Fuehrt auf der uebergebenen Bean die zugehoerige Getter-Methode zum genannten Attibut aus.
    * @param bean die Bean.
@@ -81,17 +80,17 @@ public class BeanUtil
       int dot = attribute.indexOf(".");
       if (dot == -1)
         break;
-      
+
       String s = attribute.substring(0,dot);
       bean = get(bean,s);
       if (bean == null)
         return null; // Hier gehts nicht mehr weiter
       attribute = attribute.substring(dot+1);
     }
-    
+
     if (bean instanceof GenericObject)
       return ((GenericObject)bean).getAttribute(attribute);
-    
+
     try
     {
       return invoke(bean,toGetMethod(attribute),null);
@@ -126,7 +125,7 @@ public class BeanUtil
       throw new RemoteException("unable to get attribute " + attribute,e);
     }
   }
-  
+
   /**
    * Fuehrt auf der uebergebenen Bean die zugehoerige Setter-Methode zum genannten Attibut aus.
    * @param bean die Bean.
@@ -138,7 +137,7 @@ public class BeanUtil
   {
     set(bean,attribute, new Object[]{param});
   }
-  
+
   /**
    * Fuehrt auf der uebergebenen Bean die zugehoerige Setter-Methode zum genannten Attibut aus.
    * @param bean die Bean.
@@ -173,7 +172,7 @@ public class BeanUtil
   {
     if (bean == null)
       return null;
-    
+
     if (bean instanceof GenericObject)
     {
       GenericObject gb = (GenericObject) bean;
@@ -182,7 +181,7 @@ public class BeanUtil
     }
     return bean.toString();
   }
-  
+
   /**
    * Vergleicht zwei Objekte.
    * Handelt es sich um Objekte des Typs GenericObject, werden deren equals-Methoden verwendet.
@@ -197,13 +196,13 @@ public class BeanUtil
       return true;
     if (a == null || b == null)
       return false;
-    
+
     if ((a instanceof GenericObject) && (b instanceof GenericObject))
       return ((GenericObject)a).equals((GenericObject)b);
-    
+
     return a.equals(b);
   }
-  
+
   /**
    * Macht aus einem Attribut-Namen einen Getter.
    * @param attribute Name des Attributes. 
@@ -223,7 +222,7 @@ public class BeanUtil
   {
     return "set" + attribute.substring(0,1).toUpperCase() + attribute.substring(1);
   }
-  
+
   /**
    * Macht aus einem Getter/Setter den Attribut-Namen.
    * @param method der Methoden-Name.
@@ -235,7 +234,7 @@ public class BeanUtil
       return method.substring(3,4).toLowerCase() + method.substring(4);
     return method;
   }
-  
+
   /**
    * Fuehrt auf der uebergebenen Bean genannte Methode aus.
    * @param bean die Bean.
@@ -249,7 +248,7 @@ public class BeanUtil
     Expression ex = new Expression(bean,method,params);
     return ex.getValue();
   }
-  
+
   /**
    * Liefert die Typisierung einer Klasse.
    * @param c die Klasse, deren Typisierung ermittelt werden soll.
@@ -262,15 +261,15 @@ public class BeanUtil
       Logger.warn("no (typed) class given");
       return null;
     }
-    
+
     // Gefunden in http://www.nautsch.net/2008/10/29/class-von-type-parameter-java-generics-gepimpt/
     // Generics-Voodoo ;)
-    
+
     // 1. check super class
     Class ct = getActualType(c.getGenericSuperclass());
     if (ct != null)
       return ct;
-    
+
     // 2. check interfaces
     Type[] interfaces = c.getGenericInterfaces();
     if (interfaces == null || interfaces.length == 0)
@@ -281,10 +280,10 @@ public class BeanUtil
       if (ct != null)
         return ct;
     }
-    
+
     return null; // kein Typ gefunden
   }
-  
+
   /**
    * Liefert die konkrete Typisierung des Typs.
    * @param type der zu pruefende Typ.
@@ -299,10 +298,10 @@ public class BeanUtil
     Type[] types = pType.getActualTypeArguments();
     if (types == null || types.length == 0)
       return null;
-    
+
     if (!(types[0] instanceof Class))
       return null;
-    
+
     return (Class) types[0];
   }
 }

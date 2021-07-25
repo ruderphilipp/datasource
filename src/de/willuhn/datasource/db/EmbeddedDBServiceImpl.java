@@ -17,7 +17,6 @@ import java.rmi.RemoteException;
  */
 public class EmbeddedDBServiceImpl extends DBServiceImpl
 {
-
   /**
    * ct.
    * @param pathToDbConf Path to db.conf.
@@ -31,7 +30,6 @@ public class EmbeddedDBServiceImpl extends DBServiceImpl
 		super("com.mckoi.JDBCDriver",":jdbc:mckoi:local://" + pathToDbConf,username,password);
   }
 }
-
 
 /**********************************************************************
  * $Log: EmbeddedDBServiceImpl.java,v $
